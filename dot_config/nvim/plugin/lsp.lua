@@ -85,7 +85,7 @@ local configs = {
     cmd = {
       (
       vim.env.ELIXIR_LS_EXECUTABLE
-      or (vim.loop.os_homedir() .. '/.tools/elixir-ls/language_server.sh')
+      or (vim.loop.os_homedir() .. '/.local/share/nvim/mason/packages/elixir-ls/language_server.sh')
       ),
     },
     settings = {
@@ -116,7 +116,7 @@ local configs = {
   },
   eslint = {
     settings = {
-      packageManager = 'auto'
+      packageManager = 'pnpm'
     }
   }
 }
