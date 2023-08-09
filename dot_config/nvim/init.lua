@@ -23,7 +23,5 @@ require('config')
 
 
 if vim.fn.filereadable(vim.fn.expand('$HOME/init.after.vim')) > 0 then
-
     vim.cmd('source $HOME/init.after.vim')
-
 end

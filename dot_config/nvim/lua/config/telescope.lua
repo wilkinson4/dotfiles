@@ -9,6 +9,7 @@ project_files = function()
 end
 
 local actions = require('telescope.actions')
+local fb_actions = require('telescope').extensions.file_browser.actions
 
 require('telescope').setup({
   defaults = {
@@ -34,14 +35,26 @@ require('telescope').setup({
       },
     },
   },
-   extensions = {
+  extensions = {
     media_files = {
       -- filetypes whitelist
       -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-      filetypes = {"png", "webp", "jpg", "jpeg"},
+      filetypes = { "png", "webp", "jpg", "jpeg" },
       -- find command (defaults to `fd`)
       find_cmd = "rg"
-    }
+    },
+    file_browser = {
+      theme = "dropdown",
+      mappings = {
+        ["i"] = {
+          -- your custom insert mode mappings
+          ["-"] = fb_actions.backspace
+        },
+        ["n"] = {
+          -- your custom normal mode mappings
+        },
+      },
+    },
   },
 })
 
@@ -69,3 +82,4 @@ vim.keymap.set('n', '<leader><leader>', function() builtin.commands() end)
 vim.keymap.set('n', '<leader>K', function() builtin.help_tags() end)
 
 require('telescope').load_extension('ui-select')
+require("telescope").load_extension "file_browser"

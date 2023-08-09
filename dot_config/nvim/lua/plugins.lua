@@ -44,17 +44,11 @@ require('packer').startup({
         use('saadparwaiz1/cmp_luasnip')
 
         use {
-            'kyazdani42/nvim-tree.lua',
-            requires = {
-                'kyazdani42/nvim-web-devicons' -- optional, for file icon
-            }
+            "nvim-telescope/telescope-file-browser.nvim",
+            requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
         }
-        use 'ryanoasis/vim-devicons'
         use 'kyazdani42/nvim-web-devicons'
         use { 'nvim-lualine/lualine.nvim', config = [[require('config.lualine')]] }
-        -- use 'scrooloose/nerdtree'
-        -- use 'Xuyuanp/nerdtree-git-plugin'
-        use 'tiagofumo/vim-nerdtree-syntax-highlight'
 
         use {
             'folke/trouble.nvim',
@@ -166,6 +160,9 @@ require('packer').startup({
         use {
             'goolord/alpha-nvim',
             requires = { 'nvim-tree/nvim-web-devicons' },
+            config = function()
+                require 'alpha'.setup(require 'alpha.themes.startify'.config)
+            end
         }
     end,
     config = { display = { open_cmd = 'leftabove 75vnew \\[packer\\]' }, max_jobs = 10 }
