@@ -163,6 +163,10 @@ require('packer').startup({
             end
         }
         use { "mhanberg/output-panel.nvim", config = function() require('output_panel').setup {} end }
+        use {
+            'goolord/alpha-nvim',
+            requires = { 'nvim-tree/nvim-web-devicons' },
+        }
     end,
     config = { display = { open_cmd = 'leftabove 75vnew \\[packer\\]' }, max_jobs = 10 }
 })

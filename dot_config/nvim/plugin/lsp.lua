@@ -20,14 +20,6 @@ local function prefer_eslint_formatter(client)
   end
 end
 
-local function get_package_manager()
-  print('dir: ' .. vim.fn.system('pwd'))
-  local packageManager = vim.fn.system('node ~/.config/nvim/scripts/detect-node-package-manager.js ' .. vim.fn.system('pwd'))
-  print('packageManager: ', packageManager)
-  return packageManager
-end
-
-
 local function on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
