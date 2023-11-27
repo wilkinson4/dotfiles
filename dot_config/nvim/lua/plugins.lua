@@ -1,176 +1,196 @@
-require('packer').startup({
-    function(use)
-        -- Packer can manage itself
-        use { 'wbthomason/packer.nvim' }
-        use({ 'nathom/tmux.nvim', config = [[require('config.tmux')]] })
-        -- Telescope
-        use({
+local plugins = {
+    { 'nathom/tmux.nvim',     config = function() require('config.tmux') end },
+    -- Telescope
+    {
+        'nvim-telescope/telescope.nvim',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        config = function() require('config.telescope') end
+    },
+    {
+        'nvim-telescope/telescope-github.nvim',
+        config = function() require('config.telescope-github') end,
+    },
+    'nvim-telescope/telescope-ui-select.nvim',
+    'nvim-lua/popup.nvim',
+    {
+        'rlch/github-notifications.nvim',
+        config = function() require('config.github-notifications') end,
+        dependencies = {
+            'nvim-lua/plenary.nvim',
             'nvim-telescope/telescope.nvim',
-            requires = { 'nvim-lua/plenary.nvim' },
-            config = [[require('config.telescope')]]
-        })
-        use({
-            'nvim-telescope/telescope-github.nvim',
-            config = function() require('config.telescope-github') end,
-        })
-        use { 'nvim-telescope/telescope-ui-select.nvim' }
-        use { 'nvim-lua/popup.nvim' }
-        use { 'rlch/github-notifications.nvim', config = [[require('config.github-notifications')]] }
-        use 'nvim-telescope/telescope-media-files.nvim' -- Colors/Color Scheme
-        -- use 'olimorris/onedarkpro.nvim'
-        use 'sheerun/vim-polyglot'
-        -- needed for lightline color scheme
-        use 'phanviet/vim-monokai-pro'
-        -- used for syntax
-        use 'tanvirtin/monokai.nvim'
-        use 'folke/lsp-colors.nvim'
+        },
+    },
+    'nvim-telescope/telescope-media-files.nvim',
+    'sheerun/vim-polyglot',
+    {
+        'rose-pine/neovim',
+        name = 'rose-pine',
+        config = function()
+            vim.cmd('colorscheme rose-pine')
+        end
+    },
+    'folke/lsp-colors.nvim',
 
-        -- LSP
-        use { 'neovim/nvim-lspconfig' }
-        use {
-            "williamboman/mason.nvim",
-            run = ":MasonUpdate" -- :MasonUpdate updates registry contents
-        }
-        use { 'tjdevries/nlua.nvim' }
-        use { 'hrsh7th/nvim-cmp' }
-        use { 'hrsh7th/cmp-buffer', branch = 'main' }
-        use { 'hrsh7th/cmp-path', branch = 'main' }
-        use { 'hrsh7th/cmp-calc', branch = 'main' }
-        use { 'hrsh7th/cmp-nvim-lsp', branch = 'main' }
-        use { 'hrsh7th/cmp-nvim-lua', branch = 'main' }
-        use { 'hrsh7th/cmp-cmdline', branch = 'main' }
-        use({ "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim" })
-        use({ 'L3MON4D3/LuaSnip', config = function() require('snippets') end })
-        use('saadparwaiz1/cmp_luasnip')
+    -- LSP
+    'neovim/nvim-lspconfig',
+    "williamboman/mason.nvim",
+    "folke/neodev.nvim",
+    'hrsh7th/nvim-cmp',
+    { 'hrsh7th/cmp-buffer',   branch = 'main' },
+    { 'hrsh7th/cmp-path',     branch = 'main' },
+    { 'hrsh7th/cmp-calc',     branch = 'main' },
+    { 'hrsh7th/cmp-nvim-lsp', branch = 'main' },
+    { 'hrsh7th/cmp-nvim-lua', branch = 'main' },
+    { 'hrsh7th/cmp-cmdline',  branch = 'main' },
+    { "petertriho/cmp-git",   dependencies = "nvim-lua/plenary.nvim" },
+    { 'L3MON4D3/LuaSnip',     config = function() require('snippets') end },
+    'saadparwaiz1/cmp_luasnip',
+    {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    },
+    { 'nvim-lualine/lualine.nvim',            config = function() require('config.lualine') end },
 
-        use {
-            "nvim-telescope/telescope-file-browser.nvim",
-            requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
-        }
-        use 'kyazdani42/nvim-web-devicons'
-        use { 'nvim-lualine/lualine.nvim', config = [[require('config.lualine')]] }
+    {
+        'folke/trouble.nvim',
+        config = function()
+            require('trouble').setup {
+                open_on_tab = true
+                -- your configuration comes here
+                -- or leave it empty to  the default settings
+                -- refer to the configuration section below
+            }
+        end
+    },
+    { 'mfussenegger/nvim-lint',               config = function() require('config.lint') end },
+    { 'mhartington/formatter.nvim',           config = function() require('config.formatter') end },
+    { 'jose-elias-alvarez/nvim-lsp-ts-utils', branch = 'main' },
+    -- Better syntax
+    'windwp/nvim-ts-autotag',
+    {
+        'nvim-treesitter/nvim-treesitter',
+        build = function()
+            require("nvim-treesitter.install").update({ with_sync = true })()
+        end,
+        config = function()
+            require 'nvim-treesitter.configs'.setup {
+                ensure_installed = {
+                    'bash', 'bibtex', 'c', 'c_sharp', 'clojure', 'cmake', 'comment', 'commonlisp', 'cooklang', 'cpp',
+                    'css',
+                    'dockerfile', 'dot', 'eex', 'elixir',
+                    'elm', 'erlang', 'fish', 'fortran', 'gdscript', 'gleam', 'glsl', 'go', 'godot_resource', 'gomod',
+                    'gowork',
+                    'graphql', 'haskell', 'heex',
+                    'html', 'http', 'java', 'javascript', 'jsdoc', 'json', 'kotlin', 'latex', 'llvm', 'lua', 'make',
+                    'norg', 'ocaml',
+                    'ocaml_interface',
+                    'ocamllex', 'perl', 'php', 'python', 'query', 'regex', 'ruby', 'rust', 'scala', 'scss', 'surface',
+                    'svelte',
+                    'swift', 'teal', 'tlaplus',
+                    'toml', 'tsx', 'typescript', 'vim', 'vue', 'yaml', 'zig', 'vimdoc'
+                    -- 'markdown', -- experimental
+                },
+                highlight = {
+                    enabled = true, -- false will disable the whole extension
+                    disable = {}    -- list of language that will be disabled
+                },
+                playground = { enable = true },
+                autotag = { enable = true },
+                query_linter = {
+                    enable = true,
+                    use_virtual_text = true,
+                    lint_events = { "BufWrite", "CursorHold" },
+                },
+            }
+        end
+    },
+    'nvim-treesitter/playground',
+    -- Better LSP experience
+    'onsails/lspkind-nvim',
+    { 'ray-x/lsp_signature.nvim', config = function() require('lsp_signature') end },
+    'christoomey/vim-tmux-navigator',
+    'lukas-reineke/indent-blankline.nvim',
 
-        use {
-            'folke/trouble.nvim',
-            config = function()
-                require('trouble').setup {
-                    open_on_tab = true
-                    -- your configuration comes here
-                    -- or leave it empty to use the default settings
-                    -- refer to the configuration section below
-                }
-            end
-        }
-        use({ 'mfussenegger/nvim-lint', config = function() require('config.lint') end })
-        use({ 'mhartington/formatter.nvim', config = function() require('config.formatter') end })
-        use({ 'jose-elias-alvarez/nvim-lsp-ts-utils', branch = 'main' })
-        -- Better syntax
-        use { 'windwp/nvim-ts-autotag' }
-        use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-        use { 'nvim-treesitter/playground' }
-        use { 'p00f/nvim-ts-rainbow' }
-        -- Better LSP experience
-        use { 'onsails/lspkind-nvim' }
-        use { 'ray-x/lsp_signature.nvim', config = function() require('lsp_signature') end }
-        use 'christoomey/vim-tmux-navigator'
-        use 'lukas-reineke/indent-blankline.nvim'
+    'simnalamburt/vim-mundo',
+    'tpope/vim-fugitive',
+    'stefandtw/quickfix-reflector.vim',
+    'mattn/emmet-vim',
 
-        use 'simnalamburt/vim-mundo'
-        use 'tpope/vim-fugitive'
-        use 'stefandtw/quickfix-reflector.vim'
-        use 'mattn/emmet-vim'
+    'junegunn/limelight.vim',
 
-        use 'junegunn/limelight.vim'
+    'kassio/neoterm',
+    'thinca/vim-quickrun',
+    'tpope/vim-dispatch',
+    'godlygeek/tabular',
+    'chrisbra/csv.vim',
+    'junegunn/vim-peekaboo',
 
-        -- use 'styled-components/vim-styled-components', { 'branch': 'main' }
+    'nathanaelkane/vim-indent-guides',
+    'ap/vim-css-color',
+    'guns/xterm-color-table.vim',
+    'vim-scripts/AnsiEsc.vim',
 
-        use 'kassio/neoterm'
-        use 'thinca/vim-quickrun'
-        use 'tpope/vim-dispatch'
-        -- use 'suan/vim-instant-markdown', { 'do': 'npm install -g instant-markdown-d' }
-        use 'godlygeek/tabular'
-        use 'chrisbra/csv.vim'
-        use 'junegunn/vim-peekaboo'
-        use 'diepm/vim-rest-console'
+    'machakann/vim-highlightedyank',
+    'Raimondi/delimitMate',
+    'tpope/vim-commentary',
+    'ntpeters/vim-better-whitespace',
+    'tpope/vim-repeat',
+    'tpope/vim-unimpaired',
+    { 'kylechui/nvim-surround',   config = function() require('config.surround') end },
+    'tpope/vim-abolish',
+    'tpope/vim-scriptease',
+    'tpope/vim-speeddating',
+    'tpope/vim-vinegar',
+    'tpope/vim-rsi',
 
-        use 'nathanaelkane/vim-indent-guides'
-        use 'ap/vim-css-color'
-        use 'guns/xterm-color-table.vim'
-        use 'vim-scripts/AnsiEsc.vim'
+    'wannesm/wmgraphviz.vim',
+    'rhysd/git-messenger.vim',
 
-        use 'machakann/vim-highlightedyank'
-        use 'Raimondi/delimitMate'
-        use 'tpope/vim-commentary'
-        use 'ntpeters/vim-better-whitespace'
-        use 'tpope/vim-repeat'
-        use 'tpope/vim-unimpaired'
-        use({ 'kylechui/nvim-surround', config = function() require('config.surround') end })
-        use 'tpope/vim-abolish'
-        use 'tpope/vim-scriptease'
-        use 'tpope/vim-speeddating'
-        use 'tpope/vim-vinegar'
-        use 'tpope/vim-rsi'
+    'turbio/bracey.vim',
+    {
+        'tpope/vim-dadbod',
+        dependencies = { 'kristijanhusak/vim-dadbod-ui', 'kristijanhusak/vim-dadbod-completion' },
+        config = function() require('config.dadbod').setup() end
+    },
+    'tpope/vim-endwise',
+    { 'kana/vim-textobj-entire',             dependencies = { 'kana/vim-textobj-user' } },
+    { 'kana/vim-textobj-indent',             dependencies = { 'kana/vim-textobj-user' } },
+    { 'kana/vim-textobj-line',               dependencies = { 'kana/vim-textobj-user' } },
+    { 'sgur/vim-textobj-parameter',          dependencies = { 'kana/vim-textobj-user' } },
+    { 'Julian/vim-textobj-variable-segment', dependencies = { 'kana/vim-textobj-user' } },
+    { 'Chun-Yang/vim-textobj-chunk',         dependencies = { 'kana/vim-textobj-user' } },
+    'exu/pgsql.vim',
+    'triglav/vim-visual-increment',
+    {
+        'lewis6991/gitsigns.nvim',
+        dependencies = { 'nvim-lua/plenary.nvim' }
+        -- tag = 'release' -- To  the latest release
+    },
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = function() vim.fn["mkdp#util#install"]() end,
+    },
+    'mbbill/undotree',
+    {
+        'folke/which-key.nvim',
+        config = function()
+            require('which-key').setup {
+                -- your configuration comes here
+                -- or leave it empty to  the default settings
+                -- refer to the configuration section below
+            }
+        end
+    },
+    { "mhanberg/output-panel.nvim", config = function() require('output_panel').setup {} end },
+    {
+        'goolord/alpha-nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        config = function()
+            require 'alpha'.setup(require 'alpha.themes.startify'.config)
+        end
+    },
+}
 
-        use 'wannesm/wmgraphviz.vim'
-        use 'rhysd/git-messenger.vim'
-
-        -- use 'ruanyl/vim-sort-imports'
-
-        use 'turbio/bracey.vim'
-        use {
-            'tpope/vim-dadbod',
-            requires = { 'kristijanhusak/vim-dadbod-ui', 'kristijanhusak/vim-dadbod-completion' },
-            config = function() require('config.dadbod').setup() end
-        }
-        use 'tpope/vim-endwise'
-        use 'kana/vim-textobj-user'
-        use 'kana/vim-textobj-entire'
-        use 'kana/vim-textobj-indent'
-        use 'kana/vim-textobj-line'
-        use 'sgur/vim-textobj-parameter'
-        use 'Julian/vim-textobj-variable-segment'
-        use 'Chun-Yang/vim-textobj-chunk'
-        use 'whatyouhide/vim-textobj-xmlattr'
-        use 'exu/pgsql.vim'
-        use 'triglav/vim-visual-increment'
-        use {
-            'lewis6991/gitsigns.nvim',
-            requires = { 'nvim-lua/plenary.nvim' }
-            -- tag = 'release' -- To use the latest release
-        }
-        use({
-            'iamcco/markdown-preview.nvim',
-            run = function() vim.fn['mkdp#util#install']() end,
-            ft = { 'markdown' },
-            cmd = 'MarkdownPreview',
-            config = [[require('config.markdown-preview')]]
-        })
-        use 'mbbill/undotree'
-        use {
-            'folke/which-key.nvim',
-            config = function()
-                require('which-key').setup {
-                    -- your configuration comes here
-                    -- or leave it empty to use the default settings
-                    -- refer to the configuration section below
-                }
-            end
-        }
-        use { "mhanberg/output-panel.nvim", config = function() require('output_panel').setup {} end }
-        use {
-            'goolord/alpha-nvim',
-            requires = { 'nvim-tree/nvim-web-devicons' },
-            config = function()
-                require 'alpha'.setup(require 'alpha.themes.startify'.config)
-            end
-        }
-    end,
-    config = { display = { open_cmd = 'leftabove 75vnew \\[packer\\]' }, max_jobs = 10 }
-})
-
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
+return plugins
