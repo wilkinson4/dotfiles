@@ -1,4 +1,5 @@
 require('lint').linters.mix_format = {
+  name = 'mix_format',
   cmd = 'mix',
   stdin = true,
   args = { 'format', '--check-formatted' },
@@ -25,6 +26,7 @@ require('lint').linters.mix_format = {
 local errorfmt = '[%t] %. %f:%l:%c %m, [%t] %. %f:%l %m'
 
 require('lint').linters.credo = {
+  name = 'credo',
   cmd = 'mix',
   stdin = true,
   args = { 'credo', 'list', '--format=oneline', '--read-from-stdin', '--strict' },
@@ -35,7 +37,6 @@ require('lint').linters.credo = {
 
 require('lint').linters_by_ft = {
   javascript = { 'eslint_d' },
-  lua = { 'luacheck' },
   elixir = { 'mix_format', 'credo' },
   sh = { 'shellcheck' },
 }

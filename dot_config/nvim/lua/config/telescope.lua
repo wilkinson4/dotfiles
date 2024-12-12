@@ -1,4 +1,3 @@
--- from telescope wiki/issue - use git_files if in git project; fall back to find_files if not
 project_files = function()
   local in_git_repo = vim.fn.systemlist('git rev-parse --is-inside-work-tree')[1] == 'true'
   if in_git_repo then
@@ -9,7 +8,6 @@ project_files = function()
 end
 
 local actions = require('telescope.actions')
-local fb_actions = require('telescope').extensions.file_browser.actions
 
 require('telescope').setup({
   defaults = {
@@ -43,18 +41,6 @@ require('telescope').setup({
       -- find command (defaults to `fd`)
       find_cmd = "rg"
     },
-    file_browser = {
-      theme = "dropdown",
-      mappings = {
-        ["i"] = {
-          -- your custom insert mode mappings
-          ["-"] = fb_actions.backspace
-        },
-        ["n"] = {
-          -- your custom normal mode mappings
-        },
-      },
-    },
   },
 })
 
@@ -82,4 +68,4 @@ vim.keymap.set('n', '<leader><leader>', function() builtin.commands() end)
 vim.keymap.set('n', '<leader>K', function() builtin.help_tags() end)
 
 require('telescope').load_extension('ui-select')
-require("telescope").load_extension "file_browser"
+require('telescope').load_extension('media_files')

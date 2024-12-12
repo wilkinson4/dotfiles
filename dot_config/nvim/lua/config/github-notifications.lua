@@ -3,5 +3,4 @@ require('github-notifications').setup {
   token = os.getenv('GH_TOKEN'),
 }
 
-require('telescope').load_extension('gh')
 require('telescope').load_extension('ghn')

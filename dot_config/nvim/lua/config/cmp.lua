@@ -33,7 +33,6 @@ cmp.setup({
 
   sources = {
     { name = 'luasnip' },
-    { name = 'calc' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
     {
@@ -58,6 +57,8 @@ cmp.setup({
   },
 
   formatting = {
+    fields = { "abbr", "kind", "menu" },
+    expandable_indicator = true,
     format = lspkind.cmp_format({
       with_text = true,
       menu = {
@@ -98,10 +99,9 @@ require('cmp').setup.cmdline('/', {
 })
 
 -- Database completion
--- vim.api.nvim_exec(
---   [[
---       autocmd FileType sql setlocal omnifunc=vim_dadbod_completion#omni
---       autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
---   ]],
---   false
--- )
+cmp.setup.filetype({ "sql" }, {
+  sources = {
+    { name = "vim-dadbod-completion" },
+    { name = "buffer" },
+  },
+})
