@@ -36,15 +36,15 @@ mg() {
  [ -n "$1" ] && mkdir -p "$@" && cd $_;
 }
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+# # Path to your oh-my-zsh installation.
+# export ZSH=$HOME/.oh-my-zsh
 export FZF_BASE="/opt/homebrew/fzf"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="Ducula/ducula"
+# ZSH_THEME="Ducula/ducula"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=228"
 
 # Set list of themes to pick from when loading at random
@@ -154,6 +154,7 @@ export NODEJS_CHECK_SIGNATURES=no
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
 export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+export PATH=$PATH:$GHOSTTY_BIN_DIR
 
 export KERL_BUILD_DOCS=yes
 
@@ -199,4 +200,5 @@ else
     fi
 fi
 unset __conda_setup
-# <<< conda initialize <<<
+
+eval "$(starship init zsh)"

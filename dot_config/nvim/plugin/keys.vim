@@ -61,6 +61,7 @@ nnoremap <leader>eV <cmd>vsp $MYVIMRC<CR>
 nnoremap <leader>sv <cmd>source $MYVIMRC<CR>
 nnoremap <leader>sV <cmd>source %<CR>
 nnoremap <leader>ez <cmd>vsp ~/.zshrc<CR>
+nnoremap <leader>eF <cmd>vsp ~/.config/fish/config.fish<CR>
 
 " inside template tags (<%= foo %>)
 onoremap <silent> iT <cmd>execute "silent normal! ?\\v[{<][{%]\\=\\?\\zs.\rv/\\v.\\ze[%}][>}]\r"<cr>

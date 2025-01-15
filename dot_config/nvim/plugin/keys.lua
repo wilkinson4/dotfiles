@@ -53,3 +53,7 @@ vim.keymap.set("n", "<leader>n", function() harpoon:list():next() end)
 
 -- Clear Harpoon list
 vim.keymap.set("n", "<leader>x", function() harpoon:list():clear() end)
+
+
+-- nvim Format
+vim.keymap.set("n", "<leader><f4>", "<cmd>Format<cr>", { noremap = true })

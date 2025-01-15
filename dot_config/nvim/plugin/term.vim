@@ -1,7 +1,5 @@
-autocmd TermOpen * setlocal nonumber norelativenumber bufhidden=hide sidescrolloff=0
-
 " more convenient escape
-tnoremap <leader><esc> <c-\><c-n>
+tnoremap <esc> <c-\><c-n>
 
 " split navigation
 tnoremap <m-[> <c-\><c-n>

@@ -1,6 +1,6 @@
 local wezterm = require 'wezterm';
 return {
-  font = wezterm.font("JetBrains Mono", { weight = 'Bold' }),
+  font = wezterm.font("NotoMono Nerd Font", { weight = 'Bold' }),
   color_scheme = "ChallengerDeep",
   -- window_background_opacity = 0.8,
   enable_tab_bar = false,

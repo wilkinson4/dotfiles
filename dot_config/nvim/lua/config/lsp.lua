@@ -50,9 +50,9 @@ local servers = {
   'clangd',
   'pylsp',
   'sqlls',
-  'kotlin_language_server',
-  'jdtls',
-  'nil_ls'
+  'nil_ls',
+  'gh_actions_ls',
+  'fish_lsp',
 }
 
 local configs = {
@@ -126,11 +126,11 @@ local configs = {
       }
     }
   },
-  kotlin_language_server = {
-    init_options = {
-      storagePath = require('lspconfig/util').path.join(vim.env.XDG_DATA_HOME, "nvim-data"),
-    }
-  },
+  -- kotlin_language_server = {
+  --   init_options = {
+  --     storagePath = require('lspconfig/util').path.join(vim.env.XDG_DATA_HOME, "nvim-data"),
+  --   }
+  -- },
   nil_ls = {
     settings = {
       ["nil"] = {
