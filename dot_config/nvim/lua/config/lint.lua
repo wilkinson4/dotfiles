@@ -23,21 +23,9 @@ require('lint').linters.mix_format = {
   end,
 }
 
-local errorfmt = '[%t] %. %f:%l:%c %m, [%t] %. %f:%l %m'
-
-require('lint').linters.credo = {
-  name = 'credo',
-  cmd = 'mix',
-  stdin = true,
-  args = { 'credo', 'list', '--format=oneline', '--read-from-stdin', '--strict' },
-  stream = 'stdout',
-  ignore_exitcode = true, -- credo only returns 0 if there are no errors
-  parser = require('lint.parser').from_errorformat(errorfmt)
-}
-
 require('lint').linters_by_ft = {
   javascript = { 'eslint_d' },
-  elixir = { 'mix_format', 'credo' },
+  elixir = { 'credo' },
   sh = { 'shellcheck' },
 }
 
