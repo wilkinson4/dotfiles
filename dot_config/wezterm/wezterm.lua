@@ -1,7 +1,7 @@
 local wezterm = require 'wezterm';
 return {
-  font = wezterm.font("NotoMono Nerd Font", { weight = 'Bold' }),
-  color_scheme = "ChallengerDeep",
+  font = wezterm.font("FiraMono Nerd Font Medium"),
+  color_scheme = "duskfox",
   -- window_background_opacity = 0.8,
   enable_tab_bar = false,
   keys = {
