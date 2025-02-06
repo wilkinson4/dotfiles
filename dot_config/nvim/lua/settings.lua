@@ -63,3 +63,6 @@ if vim.fn.executable('nvr') then vim.env.VISUAL = "nvr -cc split --remote-wait +
 
 -- Markdown preview port
 vim.g.mkdp_port = '8090'
+
+-- set background color to none so it respects transparent background
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
