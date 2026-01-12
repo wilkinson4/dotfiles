@@ -45,10 +45,10 @@ function gaa
     git add --all
 end
 function gb
-    git checkout -b
+    git checkout -b $argv[1]
 end
 function gcm
-    git commit -m
+    git commit -m $argv[1]
 end
 function glo
     git pull origin
@@ -57,7 +57,7 @@ function glom
     git checkout master && git pull origin master
 end
 function gpo
-    git push origin
+    git push origin $argv[1]
 end
 function gpom
     git push origin master
@@ -65,9 +65,11 @@ end
 function cb
     symbolic-ref --short HEAD
 end
+
 function pn
     !git push --set-upstream origin $(git cb)
 end
+
 function startdb
     pg_ctl -D /opt/homebrew/var/postgres start
 end
@@ -101,7 +103,6 @@ set -gx PGAPPNAME wwilkinson_cli
 #end
 # <<< conda initialize <<<
 
-
 # pnpm
 set -gx PNPM_HOME /Users/williamwilkinson/Library/pnpm
 if not string match -q -- $PNPM_HOME $PATH
@@ -109,6 +110,8 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 #
+
+set -gx CHROME_PATH /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
 
 set -gx ERL_AFLAGS -kernel shell_history enabled
 set -gx KERL_BUILD_DOCS yes

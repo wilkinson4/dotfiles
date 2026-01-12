@@ -1,5 +1,3 @@
-local lspconfig = require('lspconfig')
-
 local function on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -38,21 +36,24 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 local servers = {
-  'elixirls',
-  -- 'lexical',
-  'eslint',
-  'rust_analyzer',
-  'dockerls',
   'bashls',
-  'lua_ls',
-  'gopls',
-  'svelte',
   'clangd',
-  'pylsp',
-  'sqlls',
-  'nil_ls',
-  'gh_actions_ls',
+  'dockerls',
+  'elixirls',
+  'eslint',
   'fish_lsp',
+  'gh_actions_ls',
+  'gopls',
+  'lua_ls',
+  'nil_ls',
+  'postgres_lsp',
+  'pylsp',
+  'rust_analyzer',
+  'svelte',
+  'vimls',
+  'nginx_language_server'
+  -- 'lexical',
+  -- 'sqlls',
 }
 
 local configs = {
@@ -110,22 +111,22 @@ local configs = {
       root_pattern = { "package.json", "tsconfig.json", "tsconfig.jsonc", "node_modules" }
     },
   },
-  sqlls = {
-    root_dir = function()
-      return vim.loop.cwd()
-    end,
-    connections = {
-      {
-        name = "member_doc_local",
-        adapter = "postgres",
-        host = "localhost",
-        port = 5432,
-        user = "postgres",
-        password = "postgres",
-        database = "member_doc_api_dev",
-      }
-    }
-  },
+  -- sqlls = {
+  --   root_dir = function()
+  --     return vim.loop.cwd()
+  --   end,
+  --   connections = {
+  --     {
+  --       name = "member_doc_local",
+  --       adapter = "postgres",
+  --       host = "localhost",
+  --       port = 5432,
+  --       user = "postgres",
+  --       password = "postgres",
+  --       database = "member_doc_api_dev",
+  --     }
+  --   }
+  -- },
   -- kotlin_language_server = {
   --   init_options = {
   --     storagePath = require('lspconfig/util').path.join(vim.env.XDG_DATA_HOME, "nvim-data"),
@@ -139,6 +140,9 @@ local configs = {
         },
       },
     }
+  },
+  nginx_language_server = {
+    filetypes = { "nginx", "nginx.conf.template" }
   }
 }
 
@@ -147,13 +151,14 @@ for _, lsp in ipairs(servers) do
   config.on_attach = on_attach
   config.capabilities = capabilities
 
-  lspconfig[lsp].setup(config)
+  vim.lsp.config[lsp] = config
+  vim.lsp.enable(lsp)
 end
 
-lspconfig.vimls.setup({
-  -- don't want to override built-in keybinds for vim
-  capabilities = capabilities,
-})
+-- lspconfig.vimls.setup({
+--   -- don't want to override built-in keybinds for vim
+--   capabilities = capabilities,
+-- })
 
 -- lspconfig.sqls.setup({
 --   on_attach = function(client, bufnr)

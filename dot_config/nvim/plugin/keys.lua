@@ -57,3 +57,14 @@ vim.keymap.set("n", "<leader>x", function() harpoon:list():clear() end)
 
 -- nvim Format
 vim.keymap.set("n", "<leader><f4>", "<cmd>Format<cr>", { noremap = true })
+
+
+vim.keymap.set("n", "<leader>tl", "<cmd>ToggleTerm direction=float<cr>", { noremap = true })
+
+
+vim.keymap.set({ "n", "v" }, "<C-a>", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<LocalLeader>a", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
+vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
+
+-- Expand 'cc' into 'CodeCompanion' in the command line
+vim.cmd([[cab cc CodeCompanion]])

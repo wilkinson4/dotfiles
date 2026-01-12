@@ -8,16 +8,16 @@ local function make_output_window()
   res.job_id = vim.api.nvim_open_term(res.bufnr, {})
   vim.api.nvim_buf_set_keymap(res.bufnr, 'n', 'q', ':q<cr>', { noremap = true })
 
-  vim.api.nvim_win_set_option(res.win_id, 'winhl', 'Normal:Normal')
-  vim.api.nvim_win_set_option(res.win_id, "conceallevel", 3)
-  vim.api.nvim_win_set_option(res.win_id, 'concealcursor', 'n')
+  vim.api.nvim_set_option_value('winhl', 'Normal:Normal', { win = res.win_id })
+  vim.api.nvim_set_option_value("conceallevel", 3, { win = res.win_id })
+  vim.api.nvim_set_option_value('concealcursor', 'n', { win = res.win_id })
 
   if res.border_win_id then
-    vim.api.nvim_win_set_option(res.border_win_id, 'winhl', 'Normal:Normal')
+    vim.api.nvim_set_option_value('winhl', 'Normal:Normal', { win = res.border_win_id })
   end
 
   if res.bufnr then
-    vim.api.nvim_buf_set_option(res.bufnr, 'filetype', 'ElixirTests')
+    vim.api.nvim_set_option_value('filetype', 'ElixirTests', { buf = res.bufnr })
   end
   vim.cmd('mode')
 
@@ -48,26 +48,26 @@ function elixir_test(type)
   end
 
   Job
-    :new({
-      command = 'mix',
-      args = args,
-      cwd = vim.fn.getcwd(),
-      on_exit = function(j, return_val)
-        if return_val == 0 then
-          vim.schedule(function()
-            vim.notify('Tests run successfully')
-          end)
-        else
-          vim.schedule(function()
-            float = make_output_window()
-            for _, line in ipairs(j:result()) do
-              vim.api.nvim_chan_send(float.job_id, line .. '\r\n')
-            end
-          end)
-        end
-      end,
-    })
-    :start()
+      :new({
+        command = 'mix',
+        args = args,
+        cwd = vim.fn.getcwd(),
+        on_exit = function(j, return_val)
+          if return_val == 0 then
+            vim.schedule(function()
+              vim.notify('Tests run successfully')
+            end)
+          else
+            vim.schedule(function()
+              float = make_output_window()
+              for _, line in ipairs(j:result()) do
+                vim.api.nvim_chan_send(float.job_id, line .. '\r\n')
+              end
+            end)
+          end
+        end,
+      })
+      :start()
 end
 
 vim.api.nvim_set_keymap('n', '<leader>tt', '<cmd>lua elixir_test("line")<cr>', { noremap = true })

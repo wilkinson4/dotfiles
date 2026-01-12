@@ -43,7 +43,7 @@ vim.opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
 vim.opt.grepprg = 'rg'
 
 vim.opt.shortmess = vim.opt.shortmess + {
-    c = true     -- Do not show completion messages in command line
+    c = true -- Do not show completion messages in command line
 }
 
 vim.g.mapleader = ' ' -- use space as leader
@@ -64,5 +64,15 @@ if vim.fn.executable('nvr') then vim.env.VISUAL = "nvr -cc split --remote-wait +
 -- Markdown preview port
 vim.g.mkdp_port = '8090'
 
--- set background color to none so it respects transparent background
-vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+-- makes background transparent to work with terminal opacity
+vim.api.nvim_command('highlight! Normal guibg=none ctermbg=none')
+vim.api.nvim_command('highlight! NormalNC guibg=none ctermbg=none')
+
+vim.api.nvim_command('hi NotificationInfo guifg=#fzf1ff guibg=#191919')
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+  pattern = { "nginx.conf.template" },
+  callback = function()
+    vim.bo.filetype = "nginx"
+  end,
+})

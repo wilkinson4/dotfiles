@@ -1,2 +1,5 @@
 font-family = FiraMono Nerd Font Medium
-theme = duskfox
+theme = Catppuccin Mocha
+background-opacity = 0.95
+background-blur = true
+cursor-style-blink = true

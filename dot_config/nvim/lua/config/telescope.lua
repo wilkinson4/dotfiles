@@ -55,7 +55,7 @@ vim.keymap.set('n', '<leader>?', function() builtin.live_grep() end) -- can't do
 vim.keymap.set(
   'n',
   '<leader>/',
-  function() builtin.grep_string({ search = vim.fn.input('Rg> '), use_regex = true }) end
+  function() builtin.grep_string({ search = vim.fn.input('Rg> '), use_regex = true, additional_args = { "--pcre2" } }) end
 )
 
 -- super search for word under cursor

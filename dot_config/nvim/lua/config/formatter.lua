@@ -59,6 +59,14 @@ local function xmllint()
   }
 end
 
+local function nginx_config_formatter()
+  return {
+    exe = 'nginxfmt',
+    args = {'-', '-i 2'},
+    stdin = true,
+  }
+end
+
 require('formatter').setup({
   filetype = {
     css = { prettier },
@@ -74,5 +82,6 @@ require('formatter').setup({
     xhtml = { xmllint },
     xml = { xmllint },
     yaml = { prettier },
+    nginx = { nginx_config_formatter },
   },
 })

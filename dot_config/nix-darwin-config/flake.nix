@@ -24,15 +24,17 @@
             postgresql
             starship
             autojump
-            fishPlugins.fzf-fish
-            fishPlugins.done
+            fish
+            fishPlugins.fzf
+            # fishPlugins.tide
+            # causes hangs with terminal-notifier on MacOS
+            # fishPlugins.done
             fzf
             ripgrep
             zig
+            zoxide
           ];
 
-          # Auto upgrade nix package and the daemon service.
-          services.nix-daemon.enable = true;
           # nix.package = pkgs.nix;
 
           # Necessary for using flakes on this system.
@@ -45,11 +47,11 @@
           # $ darwin-rebuild changelog
           system.stateVersion = 5;
 
+          system.primaryUser = ""; # <-- Replace with your macOS username
           programs.fish.enable = true;
 
           # The platform the configuration will be used on.
           nixpkgs.hostPlatform = "aarch64-darwin";
-          security.pam.enableSudoTouchIdAuth = true;
 
           system.defaults = {
             screencapture.location = "~/Pictures/screenshots";

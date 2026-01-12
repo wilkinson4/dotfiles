@@ -4,6 +4,8 @@ require("nvim-treesitter.configs").setup({
   endwise = {
     enable = true,
   },
+  sync_install = false,
+  auto_install = true,
   ensure_installed = {
     "bash", "bibtex", "c", "c_sharp", "clojure", "cmake", "comment", "commonlisp", "cooklang", "cpp",
     "css",
@@ -17,11 +19,12 @@ require("nvim-treesitter.configs").setup({
     "ocamllex", "perl", "php", "python", "query", "regex", "ruby", "rust", "scala", "scss", "surface",
     "svelte",
     "swift", "teal", "tlaplus",
-    "toml", "tsx", "typescript", "vim", "vue", "yaml", "zig", "vimdoc"
-    -- "markdown", -- experimental
+    "toml", "tsx", "typescript", "vim", "vue", "yaml", "zig", "vimdoc",
+    "markdown"
   },
   highlight = {
-    enable = true
+    enable = true,
+    additional_vim_regex_highlighting = false
   },
   indent = { enable = true }
 })

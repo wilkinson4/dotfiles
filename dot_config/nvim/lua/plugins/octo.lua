@@ -6,9 +6,10 @@ return {
     'nvim-tree/nvim-web-devicons',
   },
   opts = {
-      suppress_missing_scope = {
-        projects_v2 = true,
-      },
-      users = 'assignable'
+    suppress_missing_scope = {
+      projects_v2 = true,
+    },
+    users = 'assignable',
+    use_local_fs = true,
   }
 }
