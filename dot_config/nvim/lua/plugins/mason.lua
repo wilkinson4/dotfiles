@@ -22,7 +22,7 @@ return {
         "lua_ls",
         "bashls",
         "dockerls",
-        "elixirls",
+        "expert@nightly",
         "gopls",
         "nil_ls",
         "svelte",

@@ -13,19 +13,23 @@ require("codecompanion").setup({
       model = 'gpt-5-mini'
     }
   },
-  -- adapters = {
-  --   http = {
-  --     opts = {
-  --       copilot = function()
-  --         return require("codecompanion.adapters").extend("copilot", {
-  --           schema = {
-  --             model = {
-  --               default = "gpt-5-mini",
-  --             },
-  --           },
-  --         })
-  --       end,
-  --     }
-  --   }
-  -- },
+  interactions = {
+    background = {
+      chat = {
+        callbacks = {
+          ["on_ready"] = {
+            actions = {
+              "interactions.background.builtin.chat_make_title",
+            },
+            -- Enable "on_ready" callback which contains the title generation action
+            enabled = true,
+          },
+        },
+        opts = {
+          -- Enable background interactions generally
+          enabled = true,
+        },
+      },
+    },
+  }
 })

@@ -1,3 +1,7 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/williamwilkinson/.docker/bin"
+# End of Docker Desktop section.
+
 if status is-login
     if test -d /home/linuxbrew/.linuxbrew
         # Homebrew is installed on Linux
@@ -24,13 +28,13 @@ if status is-login
 end
 
 # Attach to suspended tmux session or start one if none exists
-if test $TERM_PROGRAM != vscode
-    if status is-interactive && not set -q TMUX
-        set -g TMUX tmux new-session -d -s base
-        eval $TMUX
-        tmux attach-session -d -t base
-    end
-end
+# if test $TERM_PROGRAM != vscode
+#     if status is-interactive && not set -q TMUX
+#         set -g TMUX tmux new-session -d -s base
+#         eval $TMUX
+#         tmux attach-session -d -t base
+#     end
+# end
 
 function pcat
     pygmentize -f terminal256 -O style native -g
@@ -104,9 +108,9 @@ set -gx PGAPPNAME wwilkinson_cli
 # <<< conda initialize <<<
 
 # pnpm
-set -gx PNPM_HOME /Users/williamwilkinson/Library/pnpm
-if not string match -q -- $PNPM_HOME $PATH
-    set -gx PATH "$PNPM_HOME" $PATH
+set -gx PNPM_HOME "/Users/williamwilkinson/Library/pnpm"
+if not string match -q -- "$PNPM_HOME/bin" $PATH
+  set -gx PATH "$PNPM_HOME/bin" $PATH
 end
 # pnpm end
 #
@@ -120,3 +124,19 @@ set -gx KERL_BUILD_DOCS yes
 status --is-interactive; and rbenv init - --no-rehash fish | source
 
 starship init fish | source
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+
+# herdr auto tab naming when jumping or using cd
+# ~/.config/fish/config.fish
+
+if set -q HERDR_ENV
+    set -l har_hook_path "$HOME/.config/herdr/plugins/github/dev-shimada-herdr-auto-tab-name/shell/hook.fish"
+    if test -f $har_hook_path
+        source $har_hook_path
+    end
+end
+
+set -gx PATH /Users/williamwilkinson/.local/bin $PATH

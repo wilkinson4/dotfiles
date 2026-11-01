@@ -28,7 +28,7 @@
             fishPlugins.fzf
             # fishPlugins.tide
             # causes hangs with terminal-notifier on MacOS
-            # fishPlugins.done
+            fishPlugins.done
             fzf
             ripgrep
             zig
@@ -47,7 +47,7 @@
           # $ darwin-rebuild changelog
           system.stateVersion = 5;
 
-          system.primaryUser = ""; # <-- Replace with your macOS username
+          system.primaryUser = "williamwilkinson"; # <-- Replace "will" with your macOS username
           programs.fish.enable = true;
 
           # The platform the configuration will be used on.
@@ -61,7 +61,7 @@
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#simple
-      darwinConfigurations."Will-Wilkinsons-Macbook" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations."CB-WMD9XV2J67" = nix-darwin.lib.darwinSystem {
         modules = [ configuration ];
       };
 

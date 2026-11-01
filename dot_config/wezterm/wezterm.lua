@@ -3,8 +3,8 @@ local wezterm = require 'wezterm';
 local act = wezterm.action;
 return {
   font = wezterm.font("FiraMono Nerd Font Medium"),
-  color_scheme = "duskfox",
-  -- window_background_opacity = 0.8,
+  color_scheme = "catppuccin-mocha",
+  window_background_opacity = 0.95,
   enable_tab_bar = false,
   keys = {
     -- Rebind OPT-Left, OPT-Right as ALT-b, ALT-f respectively to match Terminal.app behavior

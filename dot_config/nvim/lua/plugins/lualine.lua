@@ -2,7 +2,6 @@ return {
   "nvim-lualine/lualine.nvim",
   config = function()
     require('lualine').setup({
-      options = { theme = 'catppuccin' },
       sections = {
         lualine_b = { 'branch', 'diff', 'diagnostics', require('github-notifications').statusline_notification_count },
         lualine_x = {

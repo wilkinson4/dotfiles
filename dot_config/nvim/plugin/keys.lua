@@ -16,7 +16,8 @@ vim.cmd 'nmap <buffer> <expr> gs db#op_exec()'
 vim.cmd 'vmap <buffer> <expr> gs db#op_exec()'
 
 vim.api.nvim_set_keymap('n', '<leader>mp', '<cmd>Octo search author:wilkinson4 is:pr is:open<cr>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>ra', '<cmd>Octo reviewer add<cr>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>mi', '<cmd>Octo search assignee:wilkinson4 is:issue is:open<cr>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>cp', '<cmd>Octo pr create<cr>', { noremap = true })
 
 -- Harpoon
 local harpoon = require("harpoon")
